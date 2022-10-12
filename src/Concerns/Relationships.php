@@ -76,11 +76,18 @@ trait Relationships
     {
         return $this->requestedRelationships($request)
             ->map(
-                /**
-                 * @param JsonApiResource|JsonApiResourceCollection|UnknownRelationship $resource
-                 * @return mixed
-                 */
-                fn ($resource) => $resource->toResourceLink($request)
+            /**
+             * @param JsonApiResource|JsonApiResourceCollection|UnknownRelationship $resource
+             * @return mixed
+             */
+//                fn ($resource) => $resource->toResourceLink($request)
+                function ($resource) use ($request) {
+                    $res = $resource->jsonSerialize();
+                    array_walk($res, function (&$a) {
+                        unset($a['attributes']);
+                    });
+                    return ["data" => $res];
+                }
             );
     }
 
