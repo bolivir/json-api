@@ -83,9 +83,7 @@ trait Relationships
 //                fn ($resource) => $resource->toResourceLink($request)
                 function ($resource) use ($request) {
                     $res = $resource->jsonSerialize();
-                    array_walk($res, function (&$a) {
-                        unset($a['attributes']);
-                    });
+                    unset($res['attributes']);
                     return ["data" => $res];
                 }
             );
