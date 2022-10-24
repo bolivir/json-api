@@ -82,9 +82,12 @@ trait Relationships
              */
 //                fn ($resource) => $resource->toResourceLink($request)
                 function ($resource) use ($request) {
-                    $res = $resource->jsonSerialize();
-                    unset($res['attributes']);
-                    return ["data" => $res];
+                    if (!$resource instanceof UnknownRelationship) {
+                        $res = $resource->jsonSerialize();
+                        unset($res['attributes']);
+                        return ["data" => $res];
+                    }
+                      return ["data" => null];
                 }
             );
     }
