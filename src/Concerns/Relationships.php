@@ -87,7 +87,7 @@ trait Relationships
                         unset($res['attributes']);
                         return ["data" => $res];
                     }
-                      return ["data" => null];
+                    return ["data" => null];
                 }
             );
     }
